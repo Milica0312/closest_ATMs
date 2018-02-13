@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Webapp that takes user current location, and displays a list of closest ATMs around</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+
+	<link rel="stylesheet" type="text/css" href="main.css">
+    <script>
+
+    var map;
+    var infowindow;
+	var mylong;
+	var mylat;
+	// Determine support for Geolocation and get location or give error
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(displayPosition, errorFunction);
+
+	} else {
+		alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
+	}
+	function displayPosition(pos) {
+		mylat = pos.coords.latitude;
+		mylong = pos.coords.longitude;
+
+	
+		var x = document.getElementById("lat").innerHTML=mylat;
+		var y = document.getElementById("long").innerHTML=mylong;
+   
+	
+	
+		var pyrmont = {lat: mylat, lng: mylong};
+
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: pyrmont,
+          zoom: 15
+        });
+
+        infowindow = new google.maps.InfoWindow();
+        var service = new google.maps.places.PlacesService(map);
+        service.nearbySearch({
+          location: pyrmont,
+          radius: 50000,
+          type: ['atm']
+        }, callback);
+  
+  
+	};
+	// Error callback function
+	function errorFunction(pos) {
+		alert('It seems like your browser or phone has blocked our access to viewing your location. Please enable this before trying again.');
+	}
+	
+    function initMap() {
+       
+    }
+
+    function callback(results, status) {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+		var textamps = "";
+          for (var i = 0; i < 10; i++) {
+            createMarker(results[i]);
+			var place = results[i];
+			textamps += place.name+"<br>";
+			var name = place.name;
+			//console.log(name);
+			
+			var textmc ="";
+			// multi-currency only 
+			if (name.includes("Eurobank"))
+				{
+					console.log(place.name);
+					textmc +=  place.name+"<br>";
+					var b = document.getElementById("multicurrency").innerHTML=textmc;
+				}
+			//console.log(place.name);
+			//console.log(place.place_id);
+			var types = String(place.types);
+			types=types.split(",");
+			//console.log(types[0]);
+          }
+		  var a = document.getElementById("closestatms").innerHTML=textamps;
+        }
+      }
+
+
+      function createMarker(place) {
+        var placeLoc = place.geometry.location;
+        var marker = new google.maps.Marker({
+          map: map,
+          position: place.geometry.location
+        });
+
+        google.maps.event.addListener(marker, 'click', function() {
+          infowindow.setContent(place.name);
+          infowindow.open(map, this);
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div id="map" style="width:800px; height:800px;"></div>
+
+	<input type="button" value="Telenor" onclick="callback1()">
+	<p id="lat"></p>
+	<p id="long"></p>
+	
+	<div id="closestatms">
+	</div>
+	<div id="multicurrency">
+	</div>
+    <script src="https://maps.googleapis.com/maps/api/js?&rankby=distance&type=establishment&key=AIzaSyBbSmpr7lq6ZPw_imoUSdl5d6G3WsASU0o&libraries=places&callback=initMap" async defer></script>
+  </body>
+</html>
