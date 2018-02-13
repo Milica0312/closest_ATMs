@@ -57,25 +57,95 @@
 
     function callback(results, status) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
-		var textamps = "";
-          for (var i = 0; i < 10; i++) {
-            createMarker(results[i]);
-			var place = results[i];
-			textamps += place.name+"<br>";
-			var name = place.name;
-			//console.log(name);
-			
-			var textmc ="";
+			var textamps = "";
+			for (var i = 0; i < 10; i++) {
+				createMarker(results[i]);
+				var place = results[i];
+				textamps += place.name+"<br>";
+				var name = place.name;
+				var latitude0 = results[0].geometry.location.lat();
+				var longitude0 = results[0].geometry.location.lng();
+				
+				var latitude1 = results[1].geometry.location.lat();
+				var longitude1 = results[1].geometry.location.lng();
+				
+				var latitude2 = results[2].geometry.location.lat();
+				var longitude2 = results[2].geometry.location.lng();
+				
+				var latitude3 = results[3].geometry.location.lat();
+				var longitude3 = results[3].geometry.location.lng();
+				
+				var latitude4 = results[4].geometry.location.lat();
+				var longitude4 = results[4].geometry.location.lng();
+				
+				var latitude5 = results[5].geometry.location.lat();
+				var longitude5 = results[5].geometry.location.lng();
+				
+				var latitude6 = results[6].geometry.location.lat();
+				var longitude6 = results[6].geometry.location.lng();
+				
+				var latitude7 = results[7].geometry.location.lat();
+				var longitude7 = results[7].geometry.location.lng();
+				
+				var latitude8 = results[8].geometry.location.lat();
+				var longitude8 = results[8].geometry.location.lng();
+				
+				var latitude9 = results[9].geometry.location.lat();
+				var longitude9 = results[9].geometry.location.lng();
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				var textmc ="";
 			// multi-currency only 
-			if (name.includes("Eurobank"))
-				{
-					console.log(place.name);
-					textmc +=  place.name+"<br>";
-					var b = document.getElementById("multicurrency").innerHTML=textmc;
-				}
+				if (name.includes("Eurobank"))
+					{
+						//console.log(place.name);
+						textmc +=  place.name+"<br>";
+						var b = document.getElementById("multicurrency").innerHTML=textmc;
+					}
 
-          }
+			}
 		  var a = document.getElementById("closestatms").innerHTML=textamps;
+				var latlon0 = latitude0 + "," + longitude0;
+				var latlon1 = latitude1 + "," + longitude1;
+				var latlon2 = latitude2 + "," + longitude2;
+				var latlon3 = latitude3 + "," + longitude3;
+				var latlon4 = latitude4 + "," + longitude4;
+				var latlon5 = latitude5 + "," + longitude5;
+				var latlon6 = latitude6 + "," + longitude6;
+				var latlon7 = latitude7 + "," + longitude7;
+				var latlon8 = latitude8 + "," + longitude8;
+				var latlon9 = latitude9 + "," + longitude9;
+			console.log(latlon0);
+		   img_url0 = "https://maps.googleapis.com/maps/api/staticmap?center="
+			+latlon0+"&zoom=14&size=400x300&key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU";
+			document.getElementById("mapholder0").innerHTML = "<img src='"+img_url0+"'>";
+			
+			img_url1 = "https://maps.googleapis.com/maps/api/staticmap?center="
+			+latlon1+"&zoom=14&size=400x300&key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU";
+			document.getElementById("mapholder1").innerHTML = "<img src='"+img_url1+"'><br>";
+			
+			img_url2 = "https://maps.googleapis.com/maps/api/staticmap?center="
+			+latlon2+"&zoom=14&size=400x300&key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU";
+			document.getElementById("mapholder2").innerHTML = "<img src='"+img_url2+"'><br>";
+			
+			img_url3 = "https://maps.googleapis.com/maps/api/staticmap?center="
+			+latlon3+"&zoom=14&size=400x300&key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU";
+			document.getElementById("mapholder3").innerHTML = "<img src='"+img_url3+"'><br>";
+			
+			img_url4 = "https://maps.googleapis.com/maps/api/staticmap?center="
+			+latlon4+"&zoom=14&size=400x300&key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU";
+			document.getElementById("mapholder4").innerHTML = "<img src='"+img_url4+"'><br>";
+			
+			img_url5 = "https://maps.googleapis.com/maps/api/staticmap?center="
+			+latlon5+"&zoom=14&size=400x300&key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU";
+			document.getElementById("mapholder5").innerHTML = "<img src='"+img_url5+"'><br>";
         }
     }
 
@@ -103,6 +173,12 @@
 	
 	<div id="closestatms">
 	</div>
+	<div id="mapholder0"></div>
+	<div id="mapholder1"></div>
+	<div id="mapholder2"></div>
+	<div id="mapholder3"></div>
+	<div id="mapholder4"></div>
+	
 	<div id="multicurrency">
 	</div>
     <script src="https://maps.googleapis.com/maps/api/js?&rankby=distance&type=establishment&key=AIzaSyBbSmpr7lq6ZPw_imoUSdl5d6G3WsASU0o&libraries=places&callback=initMap" async defer></script>
