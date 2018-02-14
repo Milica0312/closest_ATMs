@@ -15,6 +15,7 @@
 		// Determine support for Geolocation and get location or give error
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(displayPosition, errorFunction);
+			
 
 		} else {
 			alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
@@ -42,6 +43,9 @@
 		};
 		// Error callback function
 		function errorFunction(pos) {
+			document.getElementById("error").style.display = "block";
+			document.getElementById("contenttoshow").className = "shadow";
+			//document.getElementById("contenttoshow").addC = "0.5";
 			document.getElementById("support").innerHTML = "Geolocation is not supported in your browser.";
 		}
 		
@@ -71,28 +75,19 @@
 					
 					document.getElementById("mapholder"+i).innerHTML = "<img src='"+img_url+"'>";
 					
-					
-					
-					
-					
-					
-					
+					// multi-currency only 
 					var textmc ="";
-				// multi-currency only 
+				
 					if (name.includes("Eurobank"))
 						{
-							//console.log(place.name);
 							textmc +=  place.name+"<br>";
 							var b = document.getElementById("multicurrency").innerHTML=textmc;
 						}
-
 				}
-			  var a = document.getElementById("closestatms").innerHTML=textamps;
+			 
 					
 			}
 		}
-
-
 		function createMarker(place) {
 			var placeLoc = place.geometry.location;
 			var marker = new google.maps.Marker({
@@ -125,60 +120,85 @@
 		</script>
 	</head>
 	<body>
-		<div>
-			<div class="weclomesection">
-				<h1>Welcome!</h1>
-				<h2>Webapp that takes user current location, and displays a list of closest ATMs around</h2>
+		<div id="contenttoshow">
+			<div>
+				<div class="weclomesection">
+					<h1>Welcome!</h1>
+					<h2>Webapp that takes user current location, and displays a list of closest ATMs around</h2>
+				</div>
+				<div id="map"></div>
 			</div>
-			<div id="map"></div>
+			<div class="showmulticurrency">
+				<a  id="multibtn">Telenor</a>
+			</div>
+			<div id="atms">
+				<div class="oneatm">
+					<div class="fixwidth">
+						<p class="hvr-overline-from-center" id="closestatms0"></p>
+					</div>
+					<div id="mapholder0"></div>
+				</div>
+				<div class="oneatm">
+					<div class="fixwidth">
+						<p class="hvr-overline-from-center" id="closestatms1"></p>
+					</div>
+					<div id="mapholder1"></div>
+				</div>
+				<div class="oneatm">
+					<div class="fixwidth">
+						<p class="hvr-overline-from-center" id="closestatms2"></p>
+					</div>
+					<div id="mapholder2"></div>
+				</div>
+				<div class="oneatm">
+					<div class="fixwidth">
+						<p class="hvr-overline-from-center" id="closestatms3"></p>
+					</div>
+					<div id="mapholder3"></div>
+				</div>
+				<div class="oneatm">
+					<div class="fixwidth">
+						<p class="hvr-overline-from-center" id="closestatms4"></p>
+					</div>
+					<div id="mapholder4"></div>
+				</div>
+				<div class="oneatm">
+					<div class="fixwidth">
+						<p class="hvr-overline-from-center" id="closestatms5"></p>
+					</div>
+					<div id="mapholder5"></div>
+				</div>
+				<div class="oneatm">
+					<div class="fixwidth">
+						<p class="hvr-overline-from-center" id="closestatms6"></p>
+					</div>
+					<div id="mapholder6"></div>
+				</div>
+				<div class="oneatm">
+					<div class="fixwidth">
+						<p class="hvr-overline-from-center" id="closestatms7"></p>
+					</div>
+					<div id="mapholder7"></div>
+				</div>
+				<div class="oneatm">
+					<div class="fixwidth">
+						<p class="hvr-overline-from-center" id="closestatms8"></p>
+					</div>
+					<div id="mapholder8"></div>
+				</div>
+				<div class="oneatm">
+					<div class="fixwidth">
+						<p class="hvr-overline-from-center" id="closestatms9"></p>
+					</div>
+					<div id="mapholder9"></div>
+				</div>
+			</div>
+			<div id="multicurrency"></div>
 		</div>
-		<div class="showmulticurrency">
-			<a  id="multibtn">Telenor</a>
+		<div id="error">
+			<p id="support"></p>
+			<a class="reloadbtn hvr-underline-reveal" href="index.html">Reload</a>
 		</div>
-		<div id="atms">
-			<div class="oneatm">
-				<p id="closestatms0"></p>
-				<div id="mapholder0"></div>
-			</div>
-			<div class="oneatm">
-				<p id="closestatms1"></p>
-				<div id="mapholder1"></div>
-			</div>
-			<div class="oneatm">
-				<p id="closestatms2"></p>
-				<div id="mapholder2"></div>
-			</div>
-			<div class="oneatm">
-				<p id="closestatms3"></p>
-				<div id="mapholder3"></div>
-			</div>
-			<div class="oneatm">
-				<p id="closestatms4"></p>
-				<div id="mapholder4"></div>
-			</div>
-			<div class="oneatm">
-				<p id="closestatms5"></p>
-				<div id="mapholder5"></div>
-			</div>
-			<div class="oneatm">
-				<p id="closestatms6"></p>
-				<div id="mapholder6"></div>
-			</div>
-			<div class="oneatm">
-				<p id="closestatms7"></p>
-				<div id="mapholder7"></div>
-			</div>
-			<div class="oneatm">
-				<p id="closestatms8"></p>
-				<div id="mapholder8"></div>
-			</div>
-			<div class="oneatm">
-				<p id="closestatms9"></p>
-				<div id="mapholder9"></div>
-			</div>
-		</div>
-		<div id="multicurrency"></div>
-		<div id="support"></div>
 		
 		<script src="https://maps.googleapis.com/maps/api/js?&rankby=distance&type=establishment&key=AIzaSyBbSmpr7lq6ZPw_imoUSdl5d6G3WsASU0o&libraries=places&callback=initMap" async defer></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
