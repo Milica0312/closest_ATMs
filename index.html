@@ -1,187 +1,194 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Webapp that takes user current location, and displays a list of closest ATMs around</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
+	<head>
+		<title>Webapp that takes user current location, and displays a list of closest ATMs around</title>
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+		<meta charset="utf-8">
 
-	<link rel="stylesheet" type="text/css" href="main.css">
-    <script>
+		<link rel="stylesheet" type="text/css" href="main.css">
+		<script>
 
-    var map;
-    var infowindow;
-	var mylong;
-	var mylat;
-	// Determine support for Geolocation and get location or give error
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(displayPosition, errorFunction);
+		var map;
+		var infowindow;
+		var mylong;
+		var mylat;
+		// Determine support for Geolocation and get location or give error
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(displayPosition, errorFunction);
 
-	} else {
-		alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
-	}
-	function displayPosition(pos) {
-		mylat = pos.coords.latitude;
-		mylong = pos.coords.longitude;
+		} else {
+			alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
+		}
+		function displayPosition(pos) {
+			mylat = pos.coords.latitude;
+			mylong = pos.coords.longitude;
 
-		var pyrmont = {lat: mylat, lng: mylong};
+			var pyrmont = {lat: mylat, lng: mylong};
 
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: pyrmont,
-          zoom: 15
-        });
+			map = new google.maps.Map(document.getElementById('map'), {
+			  center: pyrmont,
+			  zoom: 15
+			});
 
-        infowindow = new google.maps.InfoWindow();
-        var service = new google.maps.places.PlacesService(map);
-        service.nearbySearch({
-          location: pyrmont,
-          radius: 1500,
-          type: ['atm']
-        }, callback);
-  
-  
-	};
-	// Error callback function
-	function errorFunction(pos) {
-		document.getElementById("support").innerHTML = "Geolocation is not supported in your browser.";
-	}
-	
-    function initMap() {
-       
-    }
+			infowindow = new google.maps.InfoWindow();
+			var service = new google.maps.places.PlacesService(map);
+			service.nearbySearch({
+			  location: pyrmont,
+			  radius: 1500,
+			  type: ['atm']
+			}, callback);
+	  
+	  
+		};
+		// Error callback function
+		function errorFunction(pos) {
+			document.getElementById("support").innerHTML = "Geolocation is not supported in your browser.";
+		}
+		
+		function initMap() {
+		   
+		}
 
-    function callback(results, status) {
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-			var textamps = "";
-			for (var i = 0; i < 10; i++) {
-				createMarker(results[i]);
-				var place = results[i];
-				//textamps += place.name+"<br>";
-				var name = place.name;
-				var a = document.getElementById("closestatms"+i).innerHTML=name;
-				
-				var latitude = results[i].geometry.location.lat();
-				var longitude = results[i].geometry.location.lng();
-				var latlon = latitude + "," + longitude;
-				
-				//console.log(latitude);
-				//console.log(longitude);
-				//console.log(latlon);
-				
-				var img_url = "https://maps.google.com/maps/api/staticmap?center="+latlon+"&zoom=13&markers="+latlon+"&size=150x150&sensor=false&key=AIzaSyBAGSyoctpMKhNQ8wiVNfwgLuC3NcIMJc4";
-				
-				document.getElementById("mapholder"+i).innerHTML = "<img src='"+img_url+"'>";
-				
-				
-				
-				
-				
-				
-				
-				var textmc ="";
-			// multi-currency only 
-				if (name.includes("Eurobank"))
-					{
-						//console.log(place.name);
-						textmc +=  place.name+"<br>";
-						var b = document.getElementById("multicurrency").innerHTML=textmc;
-					}
+		function callback(results, status) {
+			if (status === google.maps.places.PlacesServiceStatus.OK) {
+				var textamps = "";
+				for (var i = 0; i < 10; i++) {
+					createMarker(results[i]);
+					var place = results[i];
+					//textamps += place.name+"<br>";
+					var name = place.name;
+					var a = document.getElementById("closestatms"+i).innerHTML=name;
+					
+					var latitude = results[i].geometry.location.lat();
+					var longitude = results[i].geometry.location.lng();
+					var latlon = latitude + "," + longitude;
+					
+					//console.log(latitude);
+					//console.log(longitude);
+					//console.log(latlon);
+					
+					var img_url = "https://maps.google.com/maps/api/staticmap?center="+latlon+"&zoom=13&markers="+latlon+"&size=150x150&sensor=false&key=AIzaSyBAGSyoctpMKhNQ8wiVNfwgLuC3NcIMJc4";
+					
+					document.getElementById("mapholder"+i).innerHTML = "<img src='"+img_url+"'>";
+					
+					
+					
+					
+					
+					
+					
+					var textmc ="";
+				// multi-currency only 
+					if (name.includes("Eurobank"))
+						{
+							//console.log(place.name);
+							textmc +=  place.name+"<br>";
+							var b = document.getElementById("multicurrency").innerHTML=textmc;
+						}
 
+				}
+			  var a = document.getElementById("closestatms").innerHTML=textamps;
+					
 			}
-		  var a = document.getElementById("closestatms").innerHTML=textamps;
-				
-        }
-    }
+		}
 
 
-	function createMarker(place) {
-		var placeLoc = place.geometry.location;
-		var marker = new google.maps.Marker({
-		  map: map,
-		  position: place.geometry.location
-		});
+		function createMarker(place) {
+			var placeLoc = place.geometry.location;
+			var marker = new google.maps.Marker({
+			  map: map,
+			  position: place.geometry.location
+			});
 
-		google.maps.event.addListener(marker, 'click', function() {
-		  infowindow.setContent(place.name);
-		  infowindow.open(map, this);
-		});
-	}
-	function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
-		  var R = 6371; // Radius of the earth in km
-		  var dLat = deg2rad(lat2-lat1);  // deg2rad below
-		  var dLon = deg2rad(lon2-lon1); 
-		  var a = 
-			Math.sin(dLat/2) * Math.sin(dLat/2) +
-			Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-			Math.sin(dLon/2) * Math.sin(dLon/2)
-			; 
-		  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-		  var d = R * c; // Distance in km
-		  return d;
-	}
+			google.maps.event.addListener(marker, 'click', function() {
+			  infowindow.setContent(place.name);
+			  infowindow.open(map, this);
+			});
+		}
+		function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+			  var R = 6371; // Radius of the earth in km
+			  var dLat = deg2rad(lat2-lat1);  // deg2rad below
+			  var dLon = deg2rad(lon2-lon1); 
+			  var a = 
+				Math.sin(dLat/2) * Math.sin(dLat/2) +
+				Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+				Math.sin(dLon/2) * Math.sin(dLon/2)
+				; 
+			  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+			  var d = R * c; // Distance in km
+			  return d;
+		}
 
-		function deg2rad(deg) {
-		  return deg * (Math.PI/180)
-	}
-    </script>
-  </head>
-  <body>
-    <div id="map" style="width:800px; height:800px;"></div>
-
-	<a  id="multibtn">Telenor</a>
-
-		<div class="oneatm">
-			<p id="closestatms0"></p>
-			<div id="mapholder0"></div>
+			function deg2rad(deg) {
+			  return deg * (Math.PI/180)
+		}
+		</script>
+	</head>
+	<body>
+		<div>
+			<div class="weclomesection">
+				<h1>Welcome!</h1>
+				<h2>Webapp that takes user current location, and displays a list of closest ATMs around</h2>
+			</div>
+			<div id="map"></div>
 		</div>
-		<div class="oneatm">
-			<p id="closestatms1"></p>
-			<div id="mapholder1"></div>
+		<div class="showmulticurrency">
+			<a  id="multibtn">Telenor</a>
 		</div>
-		<div class="oneatm">
-			<p id="closestatms2"></p>
-			<div id="mapholder2"></div>
+		<div id="atms">
+			<div class="oneatm">
+				<p id="closestatms0"></p>
+				<div id="mapholder0"></div>
+			</div>
+			<div class="oneatm">
+				<p id="closestatms1"></p>
+				<div id="mapholder1"></div>
+			</div>
+			<div class="oneatm">
+				<p id="closestatms2"></p>
+				<div id="mapholder2"></div>
+			</div>
+			<div class="oneatm">
+				<p id="closestatms3"></p>
+				<div id="mapholder3"></div>
+			</div>
+			<div class="oneatm">
+				<p id="closestatms4"></p>
+				<div id="mapholder4"></div>
+			</div>
+			<div class="oneatm">
+				<p id="closestatms5"></p>
+				<div id="mapholder5"></div>
+			</div>
+			<div class="oneatm">
+				<p id="closestatms6"></p>
+				<div id="mapholder6"></div>
+			</div>
+			<div class="oneatm">
+				<p id="closestatms7"></p>
+				<div id="mapholder7"></div>
+			</div>
+			<div class="oneatm">
+				<p id="closestatms8"></p>
+				<div id="mapholder8"></div>
+			</div>
+			<div class="oneatm">
+				<p id="closestatms9"></p>
+				<div id="mapholder9"></div>
+			</div>
 		</div>
-		<div class="oneatm">
-			<p id="closestatms3"></p>
-			<div id="mapholder3"></div>
-		</div>
-		<div class="oneatm">
-			<p id="closestatms4"></p>
-			<div id="mapholder4"></div>
-		</div>
-		<div class="oneatm">
-			<p id="closestatms5"></p>
-			<div id="mapholder5"></div>
-		</div>
-		<div class="oneatm">
-			<p id="closestatms6"></p>
-			<div id="mapholder6"></div>
-		</div>
-		<div class="oneatm">
-			<p id="closestatms7"></p>
-			<div id="mapholder7"></div>
-		</div>
-		<div class="oneatm">
-			<p id="closestatms8"></p>
-			<div id="mapholder8"></div>
-		</div>
-		<div class="oneatm">
-			<p id="closestatms9"></p>
-			<div id="mapholder9"></div>
-		</div>
-	</div>
-
-	<div id="multicurrency">
-	</div>
-	<div id="support"></div>
-    <script src="https://maps.googleapis.com/maps/api/js?&rankby=distance&type=establishment&key=AIzaSyBbSmpr7lq6ZPw_imoUSdl5d6G3WsASU0o&libraries=places&callback=initMap" async defer></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script>
-	$(document).ready(function(){
-		$("#multibtn").click(function(){
-			$("#multicurrency").toggle(100);
-		});
-	});
-	</script>
-  </body>
+		<div id="multicurrency"></div>
+		<div id="support"></div>
+		
+		<script src="https://maps.googleapis.com/maps/api/js?&rankby=distance&type=establishment&key=AIzaSyBbSmpr7lq6ZPw_imoUSdl5d6G3WsASU0o&libraries=places&callback=initMap" async defer></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				$("#multibtn").click(function(){
+					$("#multicurrency").toggle(100);
+					$("#atms").toggle(1000);
+				});
+			});
+		</script>
+	</body>
 </html>
