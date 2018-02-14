@@ -50,6 +50,7 @@ html, body {
     top: 25%;
 	text-align:center;
     z-index: 100000;
+	background-color: rgba(0,0,0,0.3);
 }
 .reloadbtn{
 	color:white;
@@ -109,7 +110,7 @@ html, body {
 	color: #ba1818;
 }
 .showmulticurrency a:hover{
-	padding:15spx 50px;
+	padding:15spx 30px;
 	border: 1px solid white;
 	background-color:#ba1818;
 	color:white;
@@ -186,9 +187,15 @@ html, body {
 	.oneatm p{
 		display:block;
 		width:100%;
+		font-size: 15px !important;
+		line-height:20px !important;
 	}
 	.fixwidth {
 		width: 100%;
+	}
+	
+	.showmulticurrency a {
+		padding: 10px !important;
 	}
 	
 }
