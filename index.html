@@ -5,7 +5,7 @@
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 		<meta charset="utf-8">
 
-		<link rel="stylesheet" type="text/css" href="main.css">
+		<link rel="stylesheet" type="text/css" href="css/main.css">
 		<script>
 
 		var map;
@@ -129,7 +129,7 @@
 				<div id="map"></div>
 			</div>
 			<div class="showmulticurrency">
-				<a  id="multibtn">Telenor</a>
+				<a  id="multibtn"> Multi-currency only </a>
 			</div>
 			<div id="atms">
 				<div class="oneatm">
@@ -202,13 +202,6 @@
 		
 		<script src="https://maps.googleapis.com/maps/api/js?&rankby=distance&type=establishment&key=AIzaSyBbSmpr7lq6ZPw_imoUSdl5d6G3WsASU0o&libraries=places&callback=initMap" async defer></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script>
-			$(document).ready(function(){
-				$("#multibtn").click(function(){
-					$("#multicurrency").toggle(100);
-					$("#atms").toggle(1000);
-				});
-			});
-		</script>
+		<script  src="js/index.js"></script>
 	</body>
 </html>
