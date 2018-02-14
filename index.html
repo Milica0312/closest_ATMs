@@ -23,12 +23,6 @@
 		mylat = pos.coords.latitude;
 		mylong = pos.coords.longitude;
 
-	
-		var x = document.getElementById("lat").innerHTML=mylat;
-		var y = document.getElementById("long").innerHTML=mylong;
-   
-	
-	
 		var pyrmont = {lat: mylat, lng: mylong};
 
         map = new google.maps.Map(document.getElementById('map'), {
@@ -40,7 +34,7 @@
         var service = new google.maps.places.PlacesService(map);
         service.nearbySearch({
           location: pyrmont,
-          radius: 50000,
+          radius: 1500,
           type: ['atm']
         }, callback);
   
@@ -48,7 +42,7 @@
 	};
 	// Error callback function
 	function errorFunction(pos) {
-		alert('It seems like your browser or phone has blocked our access to viewing your location. Please enable this before trying again.');
+		document.getElementById("support").innerHTML = "Geolocation is not supported in your browser.";
 	}
 	
     function initMap() {
@@ -61,39 +55,21 @@
 			for (var i = 0; i < 10; i++) {
 				createMarker(results[i]);
 				var place = results[i];
-				textamps += place.name+"<br>";
+				//textamps += place.name+"<br>";
 				var name = place.name;
-				var latitude0 = results[0].geometry.location.lat();
-				var longitude0 = results[0].geometry.location.lng();
+				var a = document.getElementById("closestatms"+i).innerHTML=name;
 				
-				var latitude1 = results[1].geometry.location.lat();
-				var longitude1 = results[1].geometry.location.lng();
+				var latitude = results[i].geometry.location.lat();
+				var longitude = results[i].geometry.location.lng();
+				var latlon = latitude + "," + longitude;
 				
-				var latitude2 = results[2].geometry.location.lat();
-				var longitude2 = results[2].geometry.location.lng();
+				//console.log(latitude);
+				//console.log(longitude);
+				//console.log(latlon);
 				
-				var latitude3 = results[3].geometry.location.lat();
-				var longitude3 = results[3].geometry.location.lng();
+				var img_url = "https://maps.google.com/maps/api/staticmap?center="+latlon+"&zoom=13&markers="+latlon+"&size=150x150&sensor=false&key=AIzaSyBAGSyoctpMKhNQ8wiVNfwgLuC3NcIMJc4";
 				
-				var latitude4 = results[4].geometry.location.lat();
-				var longitude4 = results[4].geometry.location.lng();
-				
-				var latitude5 = results[5].geometry.location.lat();
-				var longitude5 = results[5].geometry.location.lng();
-				
-				var latitude6 = results[6].geometry.location.lat();
-				var longitude6 = results[6].geometry.location.lng();
-				
-				var latitude7 = results[7].geometry.location.lat();
-				var longitude7 = results[7].geometry.location.lng();
-				
-				var latitude8 = results[8].geometry.location.lat();
-				var longitude8 = results[8].geometry.location.lng();
-				
-				var latitude9 = results[9].geometry.location.lat();
-				var longitude9 = results[9].geometry.location.lng();
-				
-				
+				document.getElementById("mapholder"+i).innerHTML = "<img src='"+img_url+"'>";
 				
 				
 				
@@ -112,75 +88,92 @@
 
 			}
 		  var a = document.getElementById("closestatms").innerHTML=textamps;
-				var latlon0 = latitude0 + "," + longitude0;
-				var latlon1 = latitude1 + "," + longitude1;
-				var latlon2 = latitude2 + "," + longitude2;
-				var latlon3 = latitude3 + "," + longitude3;
-				var latlon4 = latitude4 + "," + longitude4;
-				var latlon5 = latitude5 + "," + longitude5;
-				var latlon6 = latitude6 + "," + longitude6;
-				var latlon7 = latitude7 + "," + longitude7;
-				var latlon8 = latitude8 + "," + longitude8;
-				var latlon9 = latitude9 + "," + longitude9;
-			console.log(latlon0);
-		   img_url0 = "https://maps.googleapis.com/maps/api/staticmap?center="
-			+latlon0+"&zoom=14&size=400x300&key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU";
-			document.getElementById("mapholder0").innerHTML = "<img src='"+img_url0+"'>";
-			
-			img_url1 = "https://maps.googleapis.com/maps/api/staticmap?center="
-			+latlon1+"&zoom=14&size=400x300&key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU";
-			document.getElementById("mapholder1").innerHTML = "<img src='"+img_url1+"'><br>";
-			
-			img_url2 = "https://maps.googleapis.com/maps/api/staticmap?center="
-			+latlon2+"&zoom=14&size=400x300&key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU";
-			document.getElementById("mapholder2").innerHTML = "<img src='"+img_url2+"'><br>";
-			
-			img_url3 = "https://maps.googleapis.com/maps/api/staticmap?center="
-			+latlon3+"&zoom=14&size=400x300&key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU";
-			document.getElementById("mapholder3").innerHTML = "<img src='"+img_url3+"'><br>";
-			
-			img_url4 = "https://maps.googleapis.com/maps/api/staticmap?center="
-			+latlon4+"&zoom=14&size=400x300&key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU";
-			document.getElementById("mapholder4").innerHTML = "<img src='"+img_url4+"'><br>";
-			
-			img_url5 = "https://maps.googleapis.com/maps/api/staticmap?center="
-			+latlon5+"&zoom=14&size=400x300&key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU";
-			document.getElementById("mapholder5").innerHTML = "<img src='"+img_url5+"'><br>";
+				
         }
     }
 
 
-      function createMarker(place) {
-        var placeLoc = place.geometry.location;
-        var marker = new google.maps.Marker({
-          map: map,
-          position: place.geometry.location
-        });
+	function createMarker(place) {
+		var placeLoc = place.geometry.location;
+		var marker = new google.maps.Marker({
+		  map: map,
+		  position: place.geometry.location
+		});
 
-        google.maps.event.addListener(marker, 'click', function() {
-          infowindow.setContent(place.name);
-          infowindow.open(map, this);
-        });
-      }
+		google.maps.event.addListener(marker, 'click', function() {
+		  infowindow.setContent(place.name);
+		  infowindow.open(map, this);
+		});
+	}
+	function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+		  var R = 6371; // Radius of the earth in km
+		  var dLat = deg2rad(lat2-lat1);  // deg2rad below
+		  var dLon = deg2rad(lon2-lon1); 
+		  var a = 
+			Math.sin(dLat/2) * Math.sin(dLat/2) +
+			Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+			Math.sin(dLon/2) * Math.sin(dLon/2)
+			; 
+		  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+		  var d = R * c; // Distance in km
+		  return d;
+	}
+
+		function deg2rad(deg) {
+		  return deg * (Math.PI/180)
+	}
     </script>
   </head>
   <body>
     <div id="map" style="width:800px; height:800px;"></div>
 
 	<a  id="multibtn">Telenor</a>
-	<p id="lat"></p>
-	<p id="long"></p>
-	
-	<div id="closestatms">
+
+		<div class="oneatm">
+			<p id="closestatms0"></p>
+			<div id="mapholder0"></div>
+		</div>
+		<div class="oneatm">
+			<p id="closestatms1"></p>
+			<div id="mapholder1"></div>
+		</div>
+		<div class="oneatm">
+			<p id="closestatms2"></p>
+			<div id="mapholder2"></div>
+		</div>
+		<div class="oneatm">
+			<p id="closestatms3"></p>
+			<div id="mapholder3"></div>
+		</div>
+		<div class="oneatm">
+			<p id="closestatms4"></p>
+			<div id="mapholder4"></div>
+		</div>
+		<div class="oneatm">
+			<p id="closestatms5"></p>
+			<div id="mapholder5"></div>
+		</div>
+		<div class="oneatm">
+			<p id="closestatms6"></p>
+			<div id="mapholder6"></div>
+		</div>
+		<div class="oneatm">
+			<p id="closestatms7"></p>
+			<div id="mapholder7"></div>
+		</div>
+		<div class="oneatm">
+			<p id="closestatms8"></p>
+			<div id="mapholder8"></div>
+		</div>
+		<div class="oneatm">
+			<p id="closestatms9"></p>
+			<div id="mapholder9"></div>
+		</div>
 	</div>
-	<div id="mapholder0"></div>
-	<div id="mapholder1"></div>
-	<div id="mapholder2"></div>
-	<div id="mapholder3"></div>
-	<div id="mapholder4"></div>
-	
+
 	<div id="multicurrency">
 	</div>
+	<div id="support"></div>
     <script src="https://maps.googleapis.com/maps/api/js?&rankby=distance&type=establishment&key=AIzaSyBbSmpr7lq6ZPw_imoUSdl5d6G3WsASU0o&libraries=places&callback=initMap" async defer></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
