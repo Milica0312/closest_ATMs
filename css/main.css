@@ -179,7 +179,7 @@ html, body {
 /**/
 @media only screen and (max-width: 1200px) {
 	.oneatm p{
-		line-height: 50px !important;
+		line-height: 50px;
 	}
 }
 @media only screen and (max-width: 500px) {
@@ -187,15 +187,15 @@ html, body {
 	.oneatm p{
 		display:block;
 		width:100%;
-		font-size: 15px !important;
-		line-height:20px !important;
+		font-size: 15px;
+		line-height:20px;
 	}
 	.fixwidth {
 		width: 100%;
 	}
 	
 	.showmulticurrency a {
-		padding: 10px !important;
+		padding: 10px;
 	}
 	
 }
